@@ -3,7 +3,6 @@ import { authMiddleware } from "next-firebase-auth-edge";
 import { clientConfig, serverConfig } from "./firebaseConfig";
 
 export async function middleware(request: NextRequest) {
-  console.log("HELLO WORLD..")
   return authMiddleware(request, {
     loginPath: "/api/login",
     logoutPath: "/api/logout",
