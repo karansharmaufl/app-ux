@@ -4,6 +4,7 @@ import { PlaidLink } from 'react-plaid-link';
 
 export default function PlaidHome() {
   const [linkToken, setLinkToken] = useState(null);
+  const [accountNumber, setAccountNumber] = useState(null);
 
   useEffect(() => {
     // Fetch the link_token from your API route
@@ -26,6 +27,7 @@ export default function PlaidHome() {
 
     const data = await response.json();
     console.log('Access Token:', data.access_token);  // Use access token as needed
+    setAccountNumber(data.account_number)
   };
 
   if (!linkToken) return <p>Loading...</p>;
@@ -33,6 +35,7 @@ export default function PlaidHome() {
   return (
     <div>
       <h1>Connect Bank Account</h1>
+      {accountNumber && <h1>Account with number {accountNumber} succesfully connected</h1>}
       <PlaidLink
         token={linkToken}
         onSuccess={handleOnSuccess}

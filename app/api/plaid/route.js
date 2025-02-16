@@ -39,10 +39,22 @@ export const POST = async (request) => {
     const response = await plaidClient.itemPublicTokenExchange({ public_token });
     const { access_token, item_id } = response.data;
 
+    const account_number = await getAccountInfo(access_token)
+
     // Send the access token to the frontend or save it in your DB for later use
-    return NextResponse.json({ access_token, item_id }, {status: 200});
+    return NextResponse.json({ access_token, item_id, account_number }, {status: 200});
   } catch (error) {
     console.log("Error:", error)
     return NextResponse.json({ error: error.message }, {status: 500});
+  }
+
+  async function getAccountInfo(accessToken) {
+    try {
+      const response = await plaidClient.authGet({ access_token: accessToken });
+      const accounts = response.data;
+      return accounts.numbers.ach[0].account
+    } catch (error) {
+      console.error("Error fetching account information:", error);
+    }
   }
 }
