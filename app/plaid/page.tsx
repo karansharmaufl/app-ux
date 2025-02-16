@@ -36,7 +36,7 @@ export default function PlaidHome() {
       <PlaidLink
         token={linkToken}
         onSuccess={handleOnSuccess}
-        onExit={(error, metadata) => {
+        onExit={(error) => {
           if (error) {
             console.error('Error:', error);
           }

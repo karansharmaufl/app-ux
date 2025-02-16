@@ -1,5 +1,5 @@
 // pages/api/plaid.js
-const { PlaidApi, Configuration, PlaidEnvironments, Products, CountryCode } = require('plaid');
+import { PlaidApi, Configuration, PlaidEnvironments, Products, CountryCode } from 'plaid';
 import { NextResponse } from 'next/server';
  
 const configuration = new Configuration({
@@ -45,8 +45,4 @@ export const POST = async (request) => {
     console.log("Error:", error)
     return NextResponse.json({ error: error.message }, {status: 500});
   }
-}
-
-export const OPTIONS = async (req) => {
-  return NextResponse.json({status: 200});
 }
